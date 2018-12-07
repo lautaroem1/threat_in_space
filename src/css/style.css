@@ -1,0 +1,42 @@
+/*
+@font-face {
+    font-family: 'MyFont';
+    src: url('../font/font.ttf') format('truetype');
+
+}
+*/
+
+body {
+
+
+    /* background-image: url("../img/cover_background.png");
+    background-size: cover;
+    background-repeat: no-repeat; */
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+}
+
+#canvas {
+    background-color: black;
+    border: 5px solid seagreen;
+
+    /* Do not modify beyond this point */
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    height: -webkit-fill-available;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
