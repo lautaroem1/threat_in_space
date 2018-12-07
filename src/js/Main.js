@@ -45,10 +45,20 @@ const drawController = new DrawController(context);
 // Initialize entities
 const background = new Background(GLOBAL.CANVAS_WIDTH, GLOBAL.CANVAS_HEIGHT, 0, 0);
 
+const coin = new AnimatedEntity(GLOBAL.CANVAS_WIDTH, GLOBAL.CANVAS_WIDTH, 0, 0, 6);
+coin.current_asset = 'spinning'
+coin.assets['spinning'] = [
+    [0, 0, 9, 10],
+    [9, 0, 9, 10],
+    [18, 0, 9, 10],
+    [27, 0, 9, 10],
+    [36, 0, 9, 10],
+    [45, 0, 9, 10],
+]
 
 // Game entry point
 window.onload = () => {
-    loadImage('src/img/bg.png').then(
+    loadImage('src/img/coin.png').then(
         img => {
             // Set drawController image resource
             drawController.img = img;
@@ -62,8 +72,9 @@ window.onload = () => {
 function game() {
     drawController.clearScreen();
 
-    drawController.drawAsset(background.assets.debug_sprite, 0, 0);
-
+    // drawController.drawAsset(background.getCurrentAsset(), 0, 0);
+    drawController.drawAsset(coin.getCurrentAsset(), 0, 0)
+    coin.updateAnimation();
     // Game loop
-    // window.requestAnimationFrame(game);
+    window.requestAnimationFrame(game);
 }
