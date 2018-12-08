@@ -8,3 +8,11 @@
 
 - Day 2:
 Implement a `Draw Controller`, load assets from file, like `sprites` and display them inside a HTML `<canvas>`.
+
+## Notes:
+
+Z-Axis values:
+- -1: Background image(s).
+- 0: Background moving components (ex: far asteroids, stars).
+- 1: Player, enemies, asteroids, powerups. Main focus of `collider`
+- 2: UI, Menues, etc.
