@@ -14,8 +14,8 @@ class Entity {
     }
 
     update() {
-        console.log('todo_update');
-
+        this.xpos += this.xspeed;
+        this.ypos += this.yspeed;
     }
 
     render() {
@@ -24,5 +24,10 @@ class Entity {
 
     getCurrentAsset() {
         return this.assets[this.current_asset];
+    }
+
+    stopMovement() {
+        this.xspeed = 0;
+        this.yspeed = 0;
     }
 }
