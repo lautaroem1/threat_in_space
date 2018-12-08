@@ -1,5 +1,3 @@
-console.log('up an running...');
-
 /**
  * Global scope variable declaration
  */
@@ -8,6 +6,8 @@ let GLOBAL = {
     // Global variables
     CANVAS_WIDTH: 144,
     CANVAS_HEIGHT: 256,
+    X_REGION: window.innerWidth / 2,
+    Y_REGION: window.innerHeight / 3,
 }
 
 /**
@@ -25,12 +25,6 @@ function loadImage(url) {
     });
 }
 
-class Background extends Entity {
-    constructor(xsize, ysize, xpos, ypos) {
-        super(xsize, ysize, xpos, ypos);
-    }
-}
-
 // Initalize canvas
 const canvas = document.getElementById('canvas');
 canvas.setAttribute('width', GLOBAL.CANVAS_WIDTH);
@@ -43,9 +37,14 @@ const context = canvas.getContext('2d');
 const drawController = new DrawController(context);
 
 // Initialize entities
-const background = new Background(GLOBAL.CANVAS_WIDTH, GLOBAL.CANVAS_HEIGHT, 0, 0);
-
-const coin = new AnimatedEntity(GLOBAL.CANVAS_WIDTH, GLOBAL.CANVAS_WIDTH, 0, 0, 6);
+const background = new Background();
+const coin = new AnimatedEntity(
+    9,
+    10,
+    50,
+    50,
+    6
+);
 coin.current_asset = 'spinning'
 coin.assets['spinning'] = [
     [0, 0, 9, 10],
@@ -54,14 +53,25 @@ coin.assets['spinning'] = [
     [27, 0, 9, 10],
     [36, 0, 9, 10],
     [45, 0, 9, 10],
-]
+];
+const player = new Player(
+    50,
+    50,
+    0,
+    0,
+    0
+)
+
+document.addEventListener('touchstart', player.inputController);
+document.addEventListener('touchend', player.inputController);
 
 // Game entry point
 window.onload = () => {
-    loadImage('src/img/coin.png').then(
+    loadImage('src/img/ship.png').then(
         img => {
             // Set drawController image resource
             drawController.img = img;
+            drawController.drawEntity(player);
             game();
         }
     )
@@ -71,10 +81,8 @@ window.onload = () => {
 // Main game loop
 function game() {
     drawController.clearScreen();
-
-    // drawController.drawAsset(background.getCurrentAsset(), 0, 0);
-    drawController.drawAsset(coin.getCurrentAsset(), 0, 0)
-    coin.updateAnimation();
+    player.update();
+    drawController.drawEntity(player);
     // Game loop
     window.requestAnimationFrame(game);
 }
